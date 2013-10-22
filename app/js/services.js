@@ -10,6 +10,44 @@ angular.module('neverEatAloneApp.services', []).
   value('db_url', 'https://nevereatalone.firebaseio.com');
 
 angular.module('neverEatAloneApp')
+	.factory('Skills', function _factory(angularFireAuth, angularFireCollection, showSkillsFilter, db_url){
+		return {
+			load:function($scope){
+				
+				$scope.profile = {'skillsMatrix':{},'saveValue':{},'description':''};
+
+				$scope.$watch('user', function(user){
+					if($scope.user !== undefined){
+						// Get all skills
+						var ref = new Firebase(db_url+'/skill_sets');
+						var skills = angularFireCollection(ref);
+						ref.on('value', function(data){
+							var matrix = {};
+					  		for(var i in data.val()){
+					  			if(matrix[Object.keys(data.val()[i])] == undefined){
+					  				matrix[Object.keys(data.val()[i])] = new Array();
+					  			}
+					  			matrix[Object.keys(data.val()[i])].push(data.val()[i][Object.keys(data.val()[i])]);
+					  		}
+
+							$scope.profile.skillsMatrix = matrix;
+						});
+						
+						var ref = new Firebase(db_url+'/profile/'+$scope.user.uid);
+						ref.on('value', function(data){
+							// console.log(data.val());
+							if(data.val() !== null){
+								$scope.profile.description = data.val().description;
+								for(var i in data.val().skills){
+									$scope.profile.saveValue[data.val().skills[i]] = true;
+								}
+							}
+						});
+					}
+				});
+			}
+		}
+	})
 	.factory('Login', function _factory($rootScope, $location, angularFireAuth, db_url){
 		return {
 			github:function(){

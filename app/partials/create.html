@@ -1,0 +1,21 @@
+<ng-include src="'partials/nav.html'"></ng-include>
+<h2>Create an event</h2>
+
+
+{{profile|json}}
+
+<form data-ng-submit="createEvent()" class="">
+	<label>Description</label>
+	<input type="textarea" ng-model="description" />
+	<label>Skills you need help with</label>
+
+	<ul>
+	<li data-ng-repeat="(key,skillArray) in profile.skillsMatrix">{{key}}
+		<ul>
+			<li data-ng-repeat="skill in skillArray"><input class="left" id="{{skill}}" type="checkbox" data-ng-model="events.saveValue[skill]" /><label for={{skill}}>{{skill}}</label></li>
+		</ul>
+	</li>
+	</ul>
+	<button>create</button>
+</form>
+

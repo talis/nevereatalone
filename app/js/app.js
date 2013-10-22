@@ -13,5 +13,7 @@ angular.module('neverEatAloneApp', [
 config(['$routeProvider', function($routeProvider) {
   $routeProvider.when('/', {templateUrl: 'partials/home.html', controller: 'HomeController'});
   $routeProvider.when('/profile', {templateUrl: 'partials/profile.html', controller:'ProfileController'});
+  $routeProvider.when('/create', {templateUrl: 'partials/create.html', controller:'CreateEventController'});
+  $routeProvider.when('/event/:eventId', {templateUrl: 'partials/event.html', controller:'EventController'});
   $routeProvider.otherwise({redirectTo: '/'});
 }]);

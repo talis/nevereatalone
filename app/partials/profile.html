@@ -2,16 +2,14 @@
 <ng-include src="'partials/nav.html'"></ng-include>
 <h2>PROFILE</h2>
 
-{{profile.description}}
-
 <form data-ng-submit="save()" data-ng-controller="ProfileController">
 <label>{{NEA}} Profile Description</label>
-<input data-ng-model="description" type="text" />
+<input data-ng-model="profile.description" type="text" />
 
 	<ul>
-	<li data-ng-repeat="(key,skillArray) in skillsMatrix">{{key}}
+	<li data-ng-repeat="(key,skillArray) in profile.skillsMatrix">{{key}}
 		<ul>
-			<li data-ng-repeat="skill in skillArray"><input id="{{skill}}" type="checkbox" data-ng-model="saveValue[skill]" /><label for={{skill}}>{{skill}}</label></li>
+			<li data-ng-repeat="skill in skillArray"><input class="left" id="{{skill}}" type="checkbox" data-ng-model="profile.saveValue[skill]" /><label for={{skill}}>{{skill}}</label></li>
 		</ul>
 	</li>
 	</ul>
