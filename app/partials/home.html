@@ -1,12 +1,15 @@
-<nav>
-	<ul>
-		<li data-ng-if="user.id"><!--<img data-ng-src="{{user|showAvatar}}" />--><a href="#/profile">{{user|showName}}</a><button data-ng-click="login.logout()">logout</button></li>
-	</ul>
-</nav>
-
+<ng-include src="'partials/nav.html'"></ng-include>
 <h2>Home page</h2>
 
+<div data-ng-if="user.uid == null">
+	<button data-ng-click="login.twitter()">login with twitter</button>
+	<button data-ng-click="login.github()">login with github</button>
+</div>
 
-<button data-ng-click="login.twitter()">login with twitter</button>
-<!-- <button data-ng-click="login.github()">login with github</button> -->
+<h3>Events happening right now</h3>
 
+{{events |json}}
+
+<div data-ng-ig="user.uid != null && user.event == null">
+	<button data-ng-click="createEvent()">create event</button>
+</div>
