@@ -1,7 +1,12 @@
+<nav>
+	<ul>
+		<li data-ng-if="user.id"><!--<img data-ng-src="{{user|showAvatar}}" />--><a href="#/profile">{{user|showName}}</a><button data-ng-click="login.logout()">logout</button></li>
+	</ul>
+</nav>
+
 <h2>Home page</h2>
 
-<h3>user</h3>
-<pre>{{user|json}}</pre>
 
-<button ng-click="login.twitter()">login with twitter</button>
-<button ng-click="login.github()">login with github</button>
+<button data-ng-click="login.twitter()">login with twitter</button>
+<button data-ng-click="login.github()">login with github</button>
+

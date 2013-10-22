@@ -8,9 +8,10 @@ angular.module('neverEatAloneApp', [
   'neverEatAloneApp.services',
   'neverEatAloneApp.directives',
   'neverEatAloneApp.controllers',
-  'firebase',
-]).
+  'firebase'
+ ]).
 config(['$routeProvider', function($routeProvider) {
   $routeProvider.when('/', {templateUrl: 'partials/home.html', controller: 'HomeController'});
+  $routeProvider.when('/profile', {templateUrl: 'partials/profile.html', controller:'ProfileController'});
   $routeProvider.otherwise({redirectTo: '/'});
 }]);

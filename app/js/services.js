@@ -10,14 +10,9 @@ angular.module('neverEatAloneApp.services', []).
   value('db_url', 'https://nevereatalone.firebaseio.com');
 
 angular.module('neverEatAloneApp')
-	.factory('Login', function _factory($rootScope){
+	.factory('Login', function _factory($rootScope, angularFireAuth){
 		return {
 			github:function(){
-				console.log('logging in through github');
-			},
-			twitter:function(){
-
-
 				var ref = new Firebase('https://nevereatalone.firebaseio.com');
 				var auth = new FirebaseSimpleLogin(ref, function(error, user) {
 					if(user){
@@ -27,15 +22,46 @@ angular.module('neverEatAloneApp')
 					} else if(error){
 					}
 				});
-				auth.login('twitter', {rememberMe:true});
+				auth.login('github', {rememberMe:true});
+			},
+			twitter:function(){
+
+
+				var ref = new Firebase('https://nevereatalone.firebaseio.com');
+
+				angularFireAuth.initialize(ref, {scope: $rootScope, name: "user", callback:function(err,user){
+					
+				}});
+				
+				
+				if($rootScope.user == undefined){
+					angularFireAuth.login('twitter', {rememberMe:true});
+				}
+			},
+			logout:function(){
+				var ref = new Firebase('https://nevereatalone.firebaseio.com');
+
+				// console.log(angularFireAuth._loggedIn());
+				angularFireAuth.initialize(ref, {scope: $rootScope, name: "user", callback:function(err,user){
+					console.log(err);
+					console.log(user);
+				}});
+				angularFireAuth.logout();
 			}
 		}
 	})
 
-	.factory('Logout', function _factory($rootScope){
+	.factory('Logout', function _factory($rootScope, angularFireAuth){
 		return {
 			logout:function(){
-				$rootScope.user = {};
+				var ref = new Firebase('https://nevereatalone.firebaseio.com');
+
+				// console.log(angularFireAuth._loggedIn());
+				angularFireAuth.initialize(ref, {scope: $rootScope, name: "user", callback:function(err,user){
+					console.log(err);
+					console.log(user);
+				}});
+				angularFireAuth.logout();
 			}
 		}
 	});
