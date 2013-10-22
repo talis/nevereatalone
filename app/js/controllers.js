@@ -8,14 +8,97 @@ angular.module('neverEatAloneApp.controllers', []).
 		Login.twitter();
 		$scope.login = Login;
 		$scope.events = {};
+		$scope.invites = {};
 
-		var ref = new Firebase(db_url+'/events');
-		angularFire(ref, $scope, 'events');
+		$scope.$watch('user', function(user){
+			if($scope.user !== undefined && $scope.user.uid !== null){
+				var eventRef, inviteEventRef,
+					ref = new Firebase(db_url+'/profile/'+$scope.user.uid+'/events'),
+					inviteRef = new Firebase(db_url+'/profile/'+$scope.user.uid+'/invites');
+				angularFireCollection(ref);
+				angularFireCollection(inviteRef);
+				ref.on('value', function(data){
+					for(var i in data.val()){
+						eventRef = new Firebase(db_url+'/events/'+i);
+						angularFireCollection(eventRef);
+						eventRef.once('value', function(eventData){
+							$scope.events[eventData.name()] = eventData.val();
+						});
+					}
+					
+				});
+				inviteRef.on('value', function(data){
+					for(var i in data.val()){
+						inviteEventRef = new Firebase(db_url+'/events/'+i);
+						angularFireCollection(inviteEventRef);
+						inviteEventRef.once('value', function(eventData){
+							$scope.invites[eventData.name()] = eventData.val();
+						});
+					}
+					
+				});
+			}
+		});
 
 	}).
-	controller('EventController', function(){
-		console.log('event controller');
+
+	controller('InviteController', function($scope, $location, $routeParams, angularFire, angularFireCollection, angularFireAuth, Login, version, db_url){
+		Login.twitter();
+		$scope.login = Login;
+
+		var inviteRef, ref = new Firebase(db_url+'/events/'+$routeParams.eventId);
+		angularFireCollection(ref);
+		ref.once('value', function(data){
+			// Check we have a valid invitation
+			inviteRef = new Firebase(db_url+'/profile/'+$scope.user.uid+'/invites/'+$routeParams.eventId);
+			angularFireCollection(inviteRef);
+			inviteRef.once('value', function(inviteData){
+				if(inviteData.val().active == true){
+					$scope.event = data.val();
+				} else{
+					$location.path('/');
+				}
+			});
+		});
+
+		$scope.join = function(evnt){
+			console.log('joining event');
+			console.log(evnt);
+		}
 	}).
+
+	controller('EventController', function($scope, $location, $routeParams, angularFire, angularFireCollection, angularFireAuth, Login, version, db_url){
+		
+		Login.twitter();
+		$scope.login = Login;
+
+		// Get event information
+		var ref = new Firebase(db_url+'/events/'+$routeParams.eventId);
+		angularFireCollection(ref);
+		ref.once('value', function(data){
+			$scope.event = data.val();
+		});
+
+		$scope.cancel = function(evnt){
+			var ref = new Firebase(db_url+'/events/'+$routeParams.eventId);
+			ref.remove();
+			ref = new Firebase(db_url+'/profile/'+$scope.user.uid+'/events/'+$routeParams.eventId);
+			ref.remove();
+
+			// Remove invites
+			for(var i in evnt.invites){				
+				ref = new Firebase(db_url+'/profile/'+evnt.invites[i]+'/invites/'+$routeParams.eventId);
+				ref.remove();
+			}
+			$location.path('/');
+		}
+		$scope.save = function(evnt){
+			var ref = new Firebase(db_url+'/events/'+$routeParams.eventId);
+			ref.update(evnt);
+		}
+	}).
+
+
 	controller('CreateEventController', function($scope, $location, angularFire, angularFireCollection, angularFireAuth, Login, Skills, db_url){
 		Login.twitter();
 		// Load up all skills we have listed
@@ -25,10 +108,10 @@ angular.module('neverEatAloneApp.controllers', []).
 
 		$scope.createEvent = function(){
 
-			console.log(this.description);
-
-			var eventobj = {
+			var newEvent, newEventRef, ref, invites = new Array(), 
+				eventobj = {
 				description:this.description,
+				location:this.location,
 				skills:new Array()
 			};
 
@@ -38,13 +121,36 @@ angular.module('neverEatAloneApp.controllers', []).
 				}
 			}
 
-			var ref = new Firebase(db_url+'/events/');
-			
-			var newEvent = ref.push({
+			newEventRef = new Firebase(db_url+'/events/');
+			newEvent = newEventRef.push({
 				description:(eventobj.description !== undefined ? eventobj.description : ''),
-				skills: eventobj.skills
-			})
-			$location.path('/event/'+newEvent.name());
+				location:(eventobj.location !== undefined ? eventobj.location : ''),
+				skills: eventobj.skills,
+				uid:$scope.user.uid
+			});
+
+			// Push into user profile object
+			ref = new Firebase(db_url+'/profile/'+$scope.user.uid+'/events/'+newEvent.name());
+			ref.set({'active':true});
+
+			// Skill search - invite users
+			for(i in eventobj.skills){
+				ref = new Firebase(db_url+'/skills/'+eventobj.skills[i]);
+				angularFireCollection(ref);
+				ref.once('value', function(data){
+					for(i in data.val()){
+						if(data.val()[i] != $scope.user.uid){
+							invites.push(data.val()[i]);
+							ref = new Firebase(db_url+'/profile/'+data.val()[i]+'/invites/'+newEvent.name());
+							ref.set({'active':true});
+						}
+					}
+
+					newEventRef = new Firebase(db_url+'/events/'+newEvent.name()+'/');
+					newEventRef.child('invites').set(invites);
+				});
+			}
+			$location.path('/');
 		};
 	}).
 	

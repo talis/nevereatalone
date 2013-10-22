@@ -1,2 +1,33 @@
 <ng-include src="'partials/nav.html'"></ng-include>
-<h2>EVENT</h2>
+<h2>View your event</h2>
+
+{{event|json}}
+
+{{user|json}}
+
+<form data-ng-if="user.uid == event.uid">
+	<label>Description</label>
+	<input type="text" data-ng-model="event.description" />
+
+	<label>Location</label>
+	<input type="text" data-ng-model="event.location" />
+
+	<label>Skills Requested</label>
+	<ul>
+		<li data-ng-repeat="skill in event.skills">{{skill}}</li>
+	</ul>
+	<button data-ng-click="save(event)">save</button>
+	<button data-ng-click="cancel(event)">cancel</button>
+</form>
+
+<div data-ng-if="user.uid != event.uid">
+	<label>Description</label>
+	<input type="text" disabled="disabled" data-ng-model="event.description" />
+	<label>Location</label>
+	<input type="text" disabled="disabled" data-ng-model="event.location" />
+
+	<label>Skills Requested</label>
+	<ul>
+		<li data-ng-repeat="skill in event.skills">{{skill}}</li>
+	</ul>
+</div>

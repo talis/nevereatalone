@@ -1,0 +1,21 @@
+<ng-include src="'partials/nav.html'"></ng-include>
+<h2>View your event</h2>
+
+{{event|json}}
+{{user|json}}
+
+
+
+<form>
+	<label>Description</label>
+	<input type="text" disabled="disabled" data-ng-model="event.description" />
+
+	<label>Location</label>
+	<input type="text" disabled="disabled" data-ng-model="event.location" />
+
+	<label>Skills Requested</label>
+	<ul>
+		<li data-ng-repeat="skill in event.skills">{{skill}}</li>
+	</ul>
+	<button data-ng-click="join(event)">join</button>
+</form>

@@ -15,5 +15,6 @@ config(['$routeProvider', function($routeProvider) {
   $routeProvider.when('/profile', {templateUrl: 'partials/profile.html', controller:'ProfileController'});
   $routeProvider.when('/create', {templateUrl: 'partials/create.html', controller:'CreateEventController'});
   $routeProvider.when('/event/:eventId', {templateUrl: 'partials/event.html', controller:'EventController'});
+  $routeProvider.when('/invite/:eventId', {templateUrl: 'partials/invite.html', controller:'InviteController'});
   $routeProvider.otherwise({redirectTo: '/'});
 }]);
