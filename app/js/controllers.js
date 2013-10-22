@@ -13,7 +13,6 @@ angular.module('neverEatAloneApp.controllers', []).
 		// Call the right login provider
 		Login.twitter();
 		$scope.login = Login;
-		// $scope.skills = {};
 		$scope.saveValue = {};
 		$scope.skillsMatrix = {};
 		
@@ -28,7 +27,13 @@ angular.module('neverEatAloneApp.controllers', []).
 				});
 				// Get user profile
 				var ref = new Firebase(db_url+'/profile/'+$scope.user.username);
-				angularFire(ref, $scope, 'profile');
+				ref.on('value', function(data){
+					$scope.description = data.val().description;
+					for(var i in data.val().skills){
+						$scope.saveValue[data.val().skills[i]] = true;
+					}
+				});
+				$scope.profile = angularFireCollection(ref);
 			}
 		})
 

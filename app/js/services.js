@@ -30,7 +30,7 @@ angular.module('neverEatAloneApp')
 				var auth = new FirebaseSimpleLogin(ref, function(error, user){
 					if(user){
 						$rootScope.$apply(function(){ 
-							console.log(user);
+							// console.log(user);
 							$rootScope.user = {
 								id:user.id,
 								username:user.username,
