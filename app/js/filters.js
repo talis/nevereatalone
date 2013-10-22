@@ -13,12 +13,7 @@ angular.module('neverEatAloneApp.filters', []).
 		if(user == undefined){
 			return false;
 		}
-		switch(user.provider){
-			case 'twitter':
-				return user.name;
-			case 'github':
-				return user.displayName;
-		}
+		return user.name;
 	};
   }).
   filter('showAvatar', function(){
@@ -33,4 +28,25 @@ angular.module('neverEatAloneApp.filters', []).
 				return user.avatar_url;
 		}
 	};
+  }).
+  filter('showSkills', function(){
+  	return function(input){
+  		if(input == undefined){
+  			return null;
+  		}
+  		var matrix = {};
+
+// console.log(input);
+
+  		for(var i in input){
+
+  			// console.log(Object.keys(input[i]));
+
+  			if(matrix[Object.keys(input[i])] == undefined){
+  				matrix[Object.keys(input[i])] = new Array();
+  			}
+  			matrix[Object.keys(input[i])].push(input[i][Object.keys(input[i])]);
+  		}
+  		return matrix;
+  	}
   });

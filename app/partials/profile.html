@@ -1,0 +1,23 @@
+<nav>
+	<ul>
+		<li data-ng-if="user.id"><!--<img data-ng-src="{{user|showAvatar}}" />--><a href="#/profile">{{user|showName}}</a><button data-ng-click="login.logout()">logout</button></li>
+	</ul>
+</nav>
+
+<h2>PROFILE</h2>
+
+{{profile|json}}
+
+<form data-ng-submit="save()" data-ng-controller="ProfileController">
+<label>{{NEA}} Profile Description</label>
+<input data-ng-model="description" type="text" />
+
+	<ul>
+	<li data-ng-repeat="(key,skillArray) in skillsMatrix">{{key}}
+		<ul>
+			<li data-ng-repeat="skill in skillArray"><input type="checkbox" data-ng-model="saveValue[skill]" /><label>{{skill}}</label></li>
+		</ul>
+	</li>
+	</ul>
+	<button>save</button>
+</form>

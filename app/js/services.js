@@ -10,9 +10,10 @@ angular.module('neverEatAloneApp.services', []).
   value('db_url', 'https://nevereatalone.firebaseio.com');
 
 angular.module('neverEatAloneApp')
-	.factory('Login', function _factory($rootScope, angularFireAuth){
+	.factory('Login', function _factory($rootScope, $location, angularFireAuth){
 		return {
 			github:function(){
+				// Refactor this code to look more like the twitter method
 				var ref = new Firebase('https://nevereatalone.firebaseio.com');
 				var auth = new FirebaseSimpleLogin(ref, function(error, user) {
 					if(user){
@@ -25,43 +26,34 @@ angular.module('neverEatAloneApp')
 				auth.login('github', {rememberMe:true});
 			},
 			twitter:function(){
-
-
 				var ref = new Firebase('https://nevereatalone.firebaseio.com');
-
-				angularFireAuth.initialize(ref, {scope: $rootScope, name: "user", callback:function(err,user){
-					
-				}});
-				
-				
-				if($rootScope.user == undefined){
-					angularFireAuth.login('twitter', {rememberMe:true});
-				}
+				var auth = new FirebaseSimpleLogin(ref, function(error, user){
+					if(user){
+						$rootScope.$apply(function(){ 
+							console.log(user);
+							$rootScope.user = {
+								id:user.id,
+								username:user.username,
+								name:user.displayName
+							};
+						});
+					} else if(error){
+					} else{
+						this.login('twitter', {
+							rememberMe:true
+						});
+					}
+				});
 			},
 			logout:function(){
+				// This doesnt always work - fix this
 				var ref = new Firebase('https://nevereatalone.firebaseio.com');
+				var auth = new FirebaseSimpleLogin(ref, function(error, user){
 
-				// console.log(angularFireAuth._loggedIn());
-				angularFireAuth.initialize(ref, {scope: $rootScope, name: "user", callback:function(err,user){
-					console.log(err);
-					console.log(user);
-				}});
-				angularFireAuth.logout();
-			}
-		}
-	})
-
-	.factory('Logout', function _factory($rootScope, angularFireAuth){
-		return {
-			logout:function(){
-				var ref = new Firebase('https://nevereatalone.firebaseio.com');
-
-				// console.log(angularFireAuth._loggedIn());
-				angularFireAuth.initialize(ref, {scope: $rootScope, name: "user", callback:function(err,user){
-					console.log(err);
-					console.log(user);
-				}});
-				angularFireAuth.logout();
+				});
+				auth.logout();
+				$rootScope.user = null;
+				$location.path('/');
 			}
 		}
 	});
