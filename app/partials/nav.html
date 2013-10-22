@@ -1,11 +1,39 @@
-<nav>
-  <ul>
-  <li><a href="#/">Never Eat Alone</a></li>
-    <li data-ng-if="user.uid"><img data-ng-src="{{user.avatar}}" />
-    <div class="row">
-      <div class="small-8 small-offset-2 columns">
-        <a href="#/profile">{{user.name}}</a><button data-ng-click="login.logout()">logout</button></li>
-      </div>
-    </div>
-  </ul>
+
+<nav class="top-bar">
+<ul class="title-area">
+  <!-- Title Area -->
+  <li class="name">
+    <h1><a href="#">Never Eat Alone</a></h1>
+  </li>
+  <!-- Remove the class "menu-icon" to get rid of menu icon. Take out "Menu" to just have icon alone -->
+  <li class="toggle-topbar menu-icon"><a href="#"><span>Menu</span></a></li>
+</ul>
+
+  <section class="top-bar-section">
+    <!-- Left Nav Section -->
+    <ul class="left">
+      <li class="divider"></li>
+
+      <li><a href="#/profile">My Profile</a></li>
+      <li data-ng-if="user.uid"><img data-ng-src="{{user.avatar}}"/>
+      <li class="divider"></li>
+    </ul>
+
+    <!-- Right Nav Section -->
+    <ul class="right">
+      <li class="divider hide-for-small"></li>
+  
+      <li class="divider"></li>
+      <li class="has-form">
+        <form>
+          <div class="row collapse">
+          </div>
+        </form>
+      </li>
+      <li class="divider show-for-small"></li>
+      <li class="has-form">
+        <a class="button" data-ng-click="login.logout()" href=#>Logout</a></li>
+      </li>
+    </ul>
+  </section>
 </nav>
