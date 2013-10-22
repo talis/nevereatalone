@@ -1,12 +1,123 @@
 <nav>
-	<ul>
-		<li data-ng-if="user.id"><!--<img data-ng-src="{{user|showAvatar}}" />--><a href="#/profile">{{user|showName}}</a><button data-ng-click="login.logout()">logout</button></li>
-	</ul>
+  <ul>
+    <li data-ng-if="user.id"><!--<img data-ng-src="{{user|showAvatar}}" />-->
+    <div class="row">
+      <div class="small-8 small-offset-2 columns">
+        <a href="#/profile">{{user|showName}}</a><button data-ng-click="login.logout()">logout</button></li>
+      </div>
+    </div>
+  </ul>
 </nav>
 
-<h2>Home page</h2>
+<body>
+  <div class="row">
+    <div class="large-12 columns">
+      <h2>Never Eat Alone</h2>
+      <hr />
+    </div>
+  </div>
 
+  <div class="row">
+    <div class="large-8 columns">
+      <h3>Get a free lunch and teach some new skillz</h3>
+      <p>Never eat alone is a network of technical people all waiting for a free lunch.  In return for buying lunch you get to fire off questions about their technical subjects.</p>
+      <div class="row">
+<!--	<div class="large-12 columns">
+	  <div class="panel">
+            <p>Sign up and get access to techinal engineers in your area</p>
+       	  </div>
+	</div>
+-->      </div>
+      <div class="row">
+	<div class="large-6 columns">
+          <p>Sign up now, add your skills, and eat for free!</p>
+        </div>
+        <div class="large-6 columns">
+	  <div class="panel">
+            <p>Six columns</p>
+	  </div>
+        </div>
+      </div>
+    <div class="row">
+      <div class="large-4 columns">
+        <div class="panel">
+          <p>Four columns</p>
+	</div>
+      </div>
+      <div class="large-4 columns">
+        <div class="panel">
+	  <p>Four columns</p>
+	</div>
+      </div>
+      <div class="large-4 columns">
+	<div class="panel">
+	  <p>Four columns</p>
+	</div>
+      </div>
+    </div>
+    <h3></h3>
+    <div class="row">
+      <div class="large-6 columns"></div>
+      <div class="large-6 columns"></div>
+    </div>
+    </div>
+    <div class="large-4 columns">
+      <h4></h4>
+      <button data-ng-click="login.twitter()">twitter</button>
+      <button data-ng-click="login.github()">github</button>
+      <h4>Users..</h4>
+      <p>Hungry users or perspective buyers?</p>
+      <ul class="disc">
+	<li><a href="http://twitter.com/nevereatalone">@nevereatalone</a><br />Follow us on twitter.</li>
+      </ul>
+    </div>
+  </div>
 
-<button data-ng-click="login.twitter()">login with twitter</button>
-<button data-ng-click="login.github()">login with github</button>
+  <script>
+  document.write('<script src=' +
+  ('__proto__' in {} ? 'js/vendor/zepto' : 'js/vendor/jquery') +
+  '.js><\/script>')
+  </script>
+  
+  <script src="js/foundation.min.js"></script>
+  <!--
+  
+  <script src="js/foundation/foundation.js"></script>
+  
+  <script src="js/foundation/foundation.alerts.js"></script>
+  
+  <script src="js/foundation/foundation.clearing.js"></script>
+  
+  <script src="js/foundation/foundation.cookie.js"></script>
+  
+  <script src="js/foundation/foundation.dropdown.js"></script>
+  
+  <script src="js/foundation/foundation.forms.js"></script>
+  
+  <script src="js/foundation/foundation.joyride.js"></script>
+  
+  <script src="js/foundation/foundation.magellan.js"></script>
+  
+  <script src="js/foundation/foundation.orbit.js"></script>
+  
+  <script src="js/foundation/foundation.reveal.js"></script>
+  
+  <script src="js/foundation/foundation.section.js"></script>
+  
+  <script src="js/foundation/foundation.tooltips.js"></script>
+  
+  <script src="js/foundation/foundation.topbar.js"></script>
+  
+  <script src="js/foundation/foundation.interchange.js"></script>
+  
+  <script src="js/foundation/foundation.placeholder.js"></script>
+  
+  <script src="js/foundation/foundation.abide.js"></script>
+  
+  -->
+  
+  <script>
+    $(document).foundation();
+  </script>
+</body>
 
