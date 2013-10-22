@@ -7,7 +7,8 @@ angular.module('neverEatAloneApp', [
   'neverEatAloneApp.filters',
   'neverEatAloneApp.services',
   'neverEatAloneApp.directives',
-  'neverEatAloneApp.controllers'
+  'neverEatAloneApp.controllers',
+  'firebase',
 ]).
 config(['$routeProvider', function($routeProvider) {
   $routeProvider.when('/', {templateUrl: 'partials/home.html', controller: 'HomeController'});
