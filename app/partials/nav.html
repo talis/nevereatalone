@@ -1,0 +1,6 @@
+<nav>
+    <ul>
+      <li><a href="#/">Never Eat Alone</a></li>
+      <li data-ng-if="user.uid"><img data-ng-src="{{user.avatar}}" /><a href="#/profile">{{user.name}}</a><button data-ng-click="login.logout()">logout</button></li>
+    </ul>
+  </nav>

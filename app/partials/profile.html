@@ -1,9 +1,4 @@
-<nav>
-	<ul>
-		<li data-ng-if="user.id"><!--<img data-ng-src="{{user|showAvatar}}" />--><a href="#/profile">{{user|showName}}</a><button data-ng-click="login.logout()">logout</button></li>
-	</ul>
-</nav>
-
+<ng-include src="'partials/nav.html'"></ng-include>
 <h2>PROFILE</h2>
 
 {{profile.description}}
@@ -15,7 +10,7 @@
 	<ul>
 	<li data-ng-repeat="(key,skillArray) in skillsMatrix">{{key}}
 		<ul>
-			<li data-ng-repeat="skill in skillArray"><input type="checkbox" data-ng-model="saveValue[skill]" /><label>{{skill}}</label></li>
+			<li data-ng-repeat="skill in skillArray"><input id="{{skill}}" type="checkbox" data-ng-model="saveValue[skill]" /><label for={{skill}}>{{skill}}</label></li>
 		</ul>
 	</li>
 	</ul>
