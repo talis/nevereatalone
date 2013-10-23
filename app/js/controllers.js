@@ -24,7 +24,7 @@ angular.module('neverEatAloneApp.controllers', []).
 					for(var i in data.val()){
 						eventRef = new Firebase(db_url+'/events/'+i);
 						angularFireCollection(eventRef);
-						eventRef.once('value', function(eventData){
+						eventRef.on('value', function(eventData){
 							$scope.events[eventData.name()] = eventData.val();
 						});
 					}
@@ -38,7 +38,7 @@ angular.module('neverEatAloneApp.controllers', []).
 
 							inviteEventRef = new Firebase(db_url+'/events/'+i);
 							angularFireCollection(inviteEventRef);
-							inviteEventRef.once('value', function(eventData){
+							inviteEventRef.on('value', function(eventData){
 								$scope.invites[eventData.name()] = eventData.val();
 							});
 						}
