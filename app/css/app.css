@@ -75,3 +75,6 @@ label{
 .rating a{
   color:white;
 }
+.underline{
+  border-bottom:solid 3px white;
+}
