@@ -3,7 +3,7 @@
 /* Controllers */
 
 angular.module('neverEatAloneApp.controllers', []).
-	controller('HomeController', function($scope, angularFire,angularFireCollection, angularFireAuth, Login, version, db_url) {
+	controller('HomeController', function($scope, angularFire,angularFireCollection, angularFireAuth, Login, Events, version, db_url) {
 		// The following line should not be used - we need to persist the user on a page refresh
 		Login.twitter();
 		$scope.login = Login;
@@ -11,7 +11,7 @@ angular.module('neverEatAloneApp.controllers', []).
 		$scope.invites = {};
 
 		$scope.$watch('user', function(user){
-			if($scope.user !== undefined && $scope.user.uid !== null){
+			if($scope.user !== undefined && $scope.user != null && $scope.user.uid !== null){
 				var eventRef, inviteEventRef,
 					ref = new Firebase(db_url+'/profile/'+$scope.user.uid+'/events'),
 					inviteRef = new Firebase(db_url+'/profile/'+$scope.user.uid+'/invites');
@@ -28,21 +28,30 @@ angular.module('neverEatAloneApp.controllers', []).
 					
 				});
 				inviteRef.on('value', function(data){
+					$scope.invites = {};
 					for(var i in data.val()){
-						inviteEventRef = new Firebase(db_url+'/events/'+i);
-						angularFireCollection(inviteEventRef);
-						inviteEventRef.once('value', function(eventData){
-							$scope.invites[eventData.name()] = eventData.val();
-						});
+						console.log(data.val()[i]);
+						if(data.val()[i].active == 'true'){
+							inviteEventRef = new Firebase(db_url+'/events/'+i);
+							angularFireCollection(inviteEventRef);
+							inviteEventRef.once('value', function(eventData){
+								$scope.invites[eventData.name()] = eventData.val();
+							});
+						}
 					}
 					
 				});
 			}
 		});
 
+		$scope.join = function(eventId){
+			Events.join($scope, eventId);
+			// console.log(eventId);
+		}
+
 	}).
 
-	controller('InviteController', function($scope, $location, $routeParams, angularFire, angularFireCollection, angularFireAuth, Login, version, db_url){
+	controller('InviteController', function($scope, $location, $routeParams, angularFire, angularFireCollection, angularFireAuth, Login, Events, version, db_url){
 		Login.twitter();
 		$scope.login = Login;
 
@@ -53,7 +62,7 @@ angular.module('neverEatAloneApp.controllers', []).
 			inviteRef = new Firebase(db_url+'/profile/'+$scope.user.uid+'/invites/'+$routeParams.eventId);
 			angularFireCollection(inviteRef);
 			inviteRef.once('value', function(inviteData){
-				if(inviteData.val().active == true){
+				if(inviteData.val() != null && inviteData.val().active == 'true'){
 					$scope.event = data.val();
 				} else{
 					$location.path('/');
@@ -61,7 +70,9 @@ angular.module('neverEatAloneApp.controllers', []).
 			});
 		});
 
-		$scope.join = function(evnt){
+		$scope.join = function(){
+			Events.join($scope, $routeParams.eventId);
+			/*
 			// Delete out all other invites
 			for(var i in evnt.invites){
 				if(evnt.invites[i] != $scope.user.uid){
@@ -73,6 +84,10 @@ angular.module('neverEatAloneApp.controllers', []).
 			ref = new Firebase(db_url+'/events/'+$routeParams.eventId);
 			ref.child('attendee_uid').set($scope.user.uid);
 			$location.path('/');
+			*/
+		}
+		$scope.leave = function(){
+			Events.leave($scope, $routeParams.eventId);
 		}
 	}).
 

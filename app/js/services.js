@@ -10,6 +10,53 @@ angular.module('neverEatAloneApp.services', []).
   value('db_url', 'https://nevereatalone.firebaseio.com');
 
 angular.module('neverEatAloneApp')
+	.factory('Events', function _factory($location, angularFireCollection, db_url){
+		return {
+			join:function($scope, eventId){
+				// Get event
+				var ref = new Firebase(db_url+'/events/'+eventId);
+				angularFireCollection(ref);
+				ref.once('value', function(data){
+					var evnt = data.val();
+			
+					// Delete out all other invites
+					for(var i in evnt.invites){
+						if(evnt.invites[i] != $scope.user.uid){
+							ref = new Firebase(db_url+'/profile/'+evnt.invites[i]+'/invites/'+eventId);
+							ref.child('active').set('false');
+						}
+					}
+					// Update the event to show you are attending
+					ref = new Firebase(db_url+'/events/'+eventId);
+					ref.child('attendee_uid').set($scope.user.uid);
+					$location.path('/');
+				});
+			},
+			leave:function($scope, eventId){
+				// Get event
+				var ref = new Firebase(db_url+'/events/'+eventId);
+				angularFireCollection(ref);
+				ref.once('value', function(data){
+					var evnt = data.val();
+			
+					// Delete out all other invites
+					for(var i in evnt.invites){
+						if(evnt.invites[i] == $scope.user.uid){
+							ref = new Firebase(db_url+'/profile/'+evnt.invites[i]+'/invites/'+eventId);
+							ref.remove();
+						} else{
+							ref = new Firebase(db_url+'/profile/'+evnt.invites[i]+'/invites/'+eventId);
+							ref.child('active').set('true');
+						}
+					}
+					// Update the event to show you are attending
+					ref = new Firebase(db_url+'/events/'+eventId+'/attendee_uid');
+					ref.remove();
+					$location.path('/');
+				});
+			}
+		}
+	})
 	.factory('Skills', function _factory(angularFireAuth, angularFireCollection, showSkillsFilter, db_url){
 		return {
 			load:function($scope){

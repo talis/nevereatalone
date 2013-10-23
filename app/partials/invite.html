@@ -17,5 +17,8 @@
 	<ul>
 		<li data-ng-repeat="skill in event.skills">{{skill}}</li>
 	</ul>
-	<button data-ng-click="join(event)">join</button>
+
+
+	<button data-ng-if="event.attendee_uid == user.uid" data-ng-click="leave()">i can't make it</button>
+	<button data-ng-if="event.attendee_uid != user.uid" data-ng-click="join()">join</button>
 </form>

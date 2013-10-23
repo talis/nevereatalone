@@ -1,10 +1,9 @@
-
 <ng-include src="'partials/nav.html'"></ng-include>
 
 
   <div class="row">
     <div class="large-12 columns">
-      <h2>Never Eat Alone</h2>
+      <!--<h2>Never Eat Alone</h2>-->
       <hr />
     </div>
   </div>
@@ -12,77 +11,41 @@
   <div class="row">
     <div class="large-8 columns">
       <h3>Get a free lunch and teach some new skillz</h3>
-<<<<<<< HEAD
-      <p>Never eat alone is a network of technical people all waiting for a free lunch.  In return for buying lunch you get to fire off questions about their technical subjects.</p>
-      <div class="row">
-<!--	<div class="large-12 columns">
-	  <div class="panel">
-            <p>Sign up and get access to techinal engineers in your area</p>
-       	  </div>
-	</div>
--->      </div>
-=======
       <p>Never eat alone is a network of technical people all waiting for a free lunch.  In return for buying lunch you get to fire off questions about your tech issues, what could be more fun?</p>
       <div class="row"></div>
->>>>>>> 337052e84b57bcae492b07d4dea6ad2056108221
       <div class="row">
-	<div class="large-6 columns">
+  <div class="large-6 columns">
           <p>Sign up now, add your skills, and eat for free!</p>
         </div>
         <div class="large-6 columns">
-	  <div class="panel">
-            <p>Six columns</p>
-	  </div>
+          <a href="#/create" data-ng-if="user.uid != null" class="button round">create event</a>
         </div>
       </div>
-    <div class="row">
-      <div class="large-4 columns">
-        <div class="panel">
-          <p>Four columns</p>
-	</div>
-      </div>
-      <div class="large-4 columns">
-        <div class="panel">
-	  <p>Four columns</p>
-	</div>
-      </div>
-      <div class="large-4 columns">
-	<div class="panel">
-	  <p>Four columns</p>
-	</div>
-      </div>
-    </div>
-    <h3></h3>
-    <div class="row">
-      <div class="large-6 columns"></div>
-      <div class="large-6 columns"></div>
-    </div>
     </div>
     <div class="large-4 columns">
-      <h4></h4>
+      <h4>Sign up or Login</h4>
       <button data-ng-click="login.twitter()">twitter</button>
       <button data-ng-click="login.github()">github</button>
       <h4>Users..</h4>
       <p>Hungry users or perspective buyers?</p>
       <ul class="disc">
-	<li><a href="http://twitter.com/nevereatalone">@nevereatalone</a><br />Follow us on twitter.</li>
+  <li><a href="http://twitter.com/nevereatalone">@nevereatalone</a><br />Follow us on twitter.</li>
       </ul>
     </div>
   </div>
 
-<button data-ng-click="login.twitter()">login with twitter</button>
-<button data-ng-click="login.github()">login with github</button>
-
-<h3 data-ng-if="events.length > 0">Your events</h3>
-<!-- <pre>{{events|json}}</pre> -->
-
-<ul>
-	<li data-ng-repeat="(key,event) in events"><a href="#/event/{{key}}">{{event.description}} ({{event.location}})</li>
-</ul>
-
-<h3 data-ng-if="invites.length > 0">Your invites</h3>
-<ul>
-	<li data-ng-repeat="(key,invite) in invites"><a href="#/invite/{{key}}">{{invite.description}} ({{invite.location}})</li>
-</ul>
-
-<a href="#/create">create event</a>
+  <div class="row">
+    <div class="large-6 columns"></div>
+    <h3 data-ng-if="(events|keyCount) > 0">Your events</h3>
+  <ul>
+    <li data-ng-repeat="(key,event) in events"><a href="#/event/{{key}}">{{event.description}} ({{event.location}})</a>
+    </li>
+  </ul>
+  <h3 data-ng-if="(invites|keyCount) > 0">Your invites</h3>
+  <ul>
+    <li data-ng-repeat="(key,invite) in invites"><a href="#/invite/{{key}}">{{invite.description}} ({{invite.location}})</a>
+      <a data-ng-if="invite.attendee_uid != user.uid" class="button" data-ng-click="join(key)">join</a>
+      <a data-ng-if="invite.attendee_uid == user.uid" class="button success">attending</a>
+    </li>
+  </ul>
+  </div>

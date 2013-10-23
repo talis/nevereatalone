@@ -8,6 +8,11 @@ angular.module('neverEatAloneApp.filters', []).
       return String(text).replace(/\%VERSION\%/mg, version);
     }
   }]).
+  filter('keyCount', function(){
+    return function(input){
+      return Object.keys(input).length;
+    }
+  }).
   filter('showSkills', function(){
   	return function(input){
   		if(input == undefined){
