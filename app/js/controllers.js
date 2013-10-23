@@ -90,7 +90,7 @@ angular.module('neverEatAloneApp.controllers', []).
 		// Get event information
 		var ref = new Firebase(db_url+'/events/'+$routeParams.eventId);
 		angularFireCollection(ref);
-		ref.once('value', function(data){
+		ref.on('value', function(data){
 			$scope.event = data.val();
 
 			// Get the user profile
@@ -117,6 +117,36 @@ angular.module('neverEatAloneApp.controllers', []).
 		$scope.save = function(evnt){
 			var ref = new Firebase(db_url+'/events/'+$routeParams.eventId);
 			ref.update(evnt);
+		}
+		$scope.rateup = function(evnt){
+			var ref = new Firebase(db_url+'/profile/'+evnt.attendee_uid+'/rating');
+			var newRating = 0;
+			ref.on('value', function(data){
+				if(data.val() != undefined){
+					newRating = data.val() + 1;
+				} else{
+					newRating = 1;
+				}
+			});
+			ref.set(newRating);
+
+			// Mark event as rated
+			ref = new Firebase(db_url+'/events/'+$routeParams.eventId+'/rated');
+			ref.set(true);
+		}
+		$scope.ratedown = function(evnt){
+			var ref = new Firebase(db_url+'/profile/'+evnt.attendee_uid+'/rating');
+			var newRating = 0;
+			ref.on('value', function(data){
+				if(data.val() != undefined){
+					newRating = data.val() - 1;
+				} else{
+					newRating = -1;
+				}
+			});
+			ref.set(newRating);
+			ref = new Firebase(db_url+'/events/'+$routeParams.eventId+'/rated');
+			ref.set(true);
 		}
 	}).
 

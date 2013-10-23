@@ -68,3 +68,10 @@ body {
 label{
 	color:white;
 }
+
+.rating{
+  font-size:150%;
+}
+.rating a{
+  color:white;
+}

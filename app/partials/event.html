@@ -20,11 +20,27 @@
 			</ul>
 
 			<div data-ng-if="event.attendee_uid != null">
+				
+
+
 				<p>Hooray - {{event.attendee_name}} is attending your event!</p>
+
+				<div data-ng-if="event.rated == null">
+					<h4>How did it go?</h4>
+					<p class="rating">
+						<a data-ng-click="rateup(event)"><i class="icon-thumbs-up"></i> went well</a>
+						<a data-ng-click="ratedown(event)"><i class="icon-thumbs-down"></i> went badly</a>
+					</p>
+				</div>
+				<div data-ng-if="event.rated != null">
+					<p>You have already voted on this event - you can't do it again!</p>
+				</div>
 			</div>
 
-			<button data-ng-click="save(event)">save</button>
-			<button data-ng-click="cancel(event)" class="alert">delete event</button>
+			<div data-ng-if="event.rated == null">
+				<button data-ng-if="event.attendee_uid == null" data-ng-click="save(event)">save</button>
+				<button data-ng-click="cancel(event)" class="alert">delete event</button>
+			</div>
 		</form>
 
 		<div data-ng-if="user.uid != event.uid">
