@@ -7,26 +7,40 @@
       <h3>Your profile</h3>
       <form class="custom" data-ng-submit="save()" data-ng-controller="ProfileController">
       
+      <!-- <pre>dscription:{{profile|json}}</pre> -->
+
         <label>About me</label>
         <input data-ng-model="profile.description" type="text" />
 
         
           <h3>Select your skillz..</h3>
-          <div class="large-12 columns">
-          
-          <ul>
-            <li data-ng-repeat="(key,skillArray) in profile.skillsMatrix">{{key}}
+          <div class="row">
+            <div class="large-12 columns">        
               <ul>
-                <div class="large-3 small-3 columns end">
-                  <li data-ng-repeat="skill in skillArray"><input type="checkbox" id="{{skill}}" data-ng-model="profile.saveValue[skill]"/>
-                    <label for={{skill}}>{{skill}}</label>  
-                  </li>
-                </div>
-              </ul>
-            </li>
-          </ul>
-          
+                <li class="nobullet large-4 columns" data-ng-repeat="(key,skillArray) in profile.skillsMatrix">{{key}}
+                  <ul>
+                      <li data-ng-repeat="skill in skillArray">
+                      <label>{{skill}}</label>
+                      <div class="switch tiny round">
 
+                        <input data-ng-model="profile.saveValue[skill]" data-ng-if="profile.saveValue[skill] == null" id="{{skill}}" name="{{skill}}" type="radio" ng-click="removeSkill(skill)">
+                        <input data-ng-model="profile.saveValue[skill]" data-ng-if="profile.saveValue[skill] != null" id="{{skill}}" name="{{skill}}" type="radio" checked ng-click="removeSkill(skill)">
+                        
+
+                        <label for="{{skill}}" onclick="">Off</label>
+                        <input id="{{skill}}1" name="{{skill}}" type="radio" ng-click="addSkill(skill)">
+                        <label for="{{skill}}1" onclick="">On</label>
+                        <span></span>
+
+                      </div>
+<!--                         <input type="radio" id="{{skill}}" name="switch-x" data-ng-model="profile.saveValue[skill]"/>
+                        <label for={{skill}}>{{skill}}</label>  
+ -->                      </li>
+                  </ul>
+                </li>
+              </ul>
+            </div>
+          </div>          
           <button>save</button>
         
       </form>

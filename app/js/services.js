@@ -90,6 +90,7 @@ angular.module('neverEatAloneApp')
 								$scope.profile.description = data.val().description;
 								for(var i in data.val().skills){
 									$scope.profile.saveValue[data.val().skills[i]] = true;
+									$scope.saveValueOn[data.val().skills[i]] = true;
 								}
 							}
 						});

@@ -78,3 +78,21 @@ label{
 .underline{
   border-bottom:solid 3px white;
 }
+
+div.switch{
+  border-color:#111;
+}
+div.switch span:last-child{
+  -webkit-box-shadow:2px 0 10px 0 rgba(0, 0, 0, 0.07), 1000px 0 0 1000px #00ba00, -2px 0 10px 0 rgba(0, 0, 0, 0.07), -1000px 0 0 1000px #6D0037;
+  box-shadow:2px 0 10px 0 rgba(0, 0, 0, 0.07), 1000px 0 0 980px #00ba00, -2px 0 10px 0 rgba(0, 0, 0, 0.07), -1000px 0 0 1000px #6D0037;
+}
+.nobullet{
+  list-style:none;
+  font-size:150%;
+  font-weight:bold;
+  text-transform: uppercase;
+}
+.nobullet ul{
+  font-size:75%;
+  text-transform: none;
+}

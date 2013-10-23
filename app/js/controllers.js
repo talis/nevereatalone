@@ -212,23 +212,28 @@ angular.module('neverEatAloneApp.controllers', []).
 		// The following line should not be used - we need to persist the user on a page refresh
 		Login.login();
 		$scope.login = Login;
+		$scope.saveValueOn = {};
 		Skills.load($scope);
 
 
-
+		$scope.addSkill = function(val){
+			$scope.saveValueOn[val] = true;
+		};
+		$scope.removeSkill = function(val){
+			delete $scope.saveValueOn[val];
+		}
 
 		$scope.save = function(){
+
 			var userobj = {
 				description:this.profile.description,
 				skills:new Array()
 			};
 
-			for(var i in this.profile.saveValue){
-				if(this.profile.saveValue[i] == true){
+			for(var i in $scope.saveValueOn){
+				if($scope.saveValueOn[i] == true){
 					var ref = new Firebase(db_url+'/skills/'+i);
 					ref.push($scope.user.uid);
-
-
 					userobj.skills.push(i);
 				}
 			}
