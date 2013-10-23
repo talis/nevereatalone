@@ -1,18 +1,23 @@
 <ng-include src="'partials/nav.html'"></ng-include>
-<h2>View your event</h2>
 
-<form>
-	<label>Description</label>
-	<input type="text" disabled="disabled" data-ng-model="event.description" />
+<div class="row">
+    <div class="large-12 columns">
+    	<h2>View your event</h2>
 
-	<label>Location</label>
-	<input type="text" disabled="disabled" data-ng-model="event.location" />
+		<form>
+			<label>Description</label>
+			<input type="text" disabled="disabled" data-ng-model="event.description" />
 
-	<label>Skills Requested</label>
-	<ul>
-		<li data-ng-repeat="skill in event.skills">{{skill}}</li>
-	</ul>
+			<label>Location</label>
+			<input type="text" disabled="disabled" data-ng-model="event.location" />
 
-	<button class="alert" data-ng-if="event.attendee_uid == user.uid" data-ng-click="leave()">i can't make it</button>
-	<button data-ng-if="event.attendee_uid != user.uid" data-ng-click="join()">join</button>
-</form>
+			<label>Skills Requested</label>
+			<ul>
+				<li data-ng-repeat="skill in event.skills">{{skill}}</li>
+			</ul>
+
+			<button class="alert" data-ng-if="event.attendee_uid == user.uid" data-ng-click="leave()">i can't make it</button>
+			<button data-ng-if="event.attendee_uid != user.uid" data-ng-click="join()">join</button>
+		</form>
+	</div>
+</div>

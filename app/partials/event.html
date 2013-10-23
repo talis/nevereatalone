@@ -1,37 +1,42 @@
 <ng-include src="'partials/nav.html'"></ng-include>
+
+
+<div class="row">
+    <div class="large-12 columns">
 <h2>View your event</h2>
+		<form data-ng-if="user.uid == event.uid">
+			<label>Description</label>
+			<textarea ng-model="event.description" placeholder="Help me, Obi-Wan Kenobi; you're my only hope."></textarea>
 
-<form data-ng-if="user.uid == event.uid">
-	<label>Description</label>
-	<textarea ng-model="event.description" placeholder="Help me, Obi-Wan Kenobi; you're my only hope."></textarea>
+			<label>Location</label>
+			<input type="text" ng-model="event.location" placeholder="Somewhere" />
 
-	<label>Location</label>
-	<input type="text" ng-model="event.location" placeholder="Somewhere" />
+			<label>When</label>
+			<input type="text" ng-model="event.when" placeholder="11am on the 23rd of Oct" />
 
-	<label>When</label>
-	<input type="text" ng-model="event.when" placeholder="11am on the 23rd of Oct" />
+			<label>Skills Requested</label>
+			<ul>
+				<li data-ng-repeat="skill in event.skills">{{skill}}</li>
+			</ul>
 
-	<label>Skills Requested</label>
-	<ul>
-		<li data-ng-repeat="skill in event.skills">{{skill}}</li>
-	</ul>
+			<div data-ng-if="event.attendee_uid != null">
+				<p>Hooray - {{event.attendee_name}} is attending your event!</p>
+			</div>
 
-	<div data-ng-if="event.attendee_uid != null">
-		<p>Hooray - {{event.attendee_name}} is attending your event!</p>
+			<button data-ng-click="save(event)">save</button>
+			<button data-ng-click="cancel(event)" class="alert">delete event</button>
+		</form>
+
+		<div data-ng-if="user.uid != event.uid">
+			<label>Description</label>
+			<input type="text" disabled="disabled" data-ng-model="event.description" />
+			<label>Location</label>
+			<input type="text" disabled="disabled" data-ng-model="event.location" />
+
+			<label>Skills Requested</label>
+			<ul>
+				<li data-ng-repeat="skill in event.skills">{{skill}}</li>
+			</ul>
+		</div>
 	</div>
-
-	<button data-ng-click="save(event)">save</button>
-	<button data-ng-click="cancel(event)" class="alert">delete event</button>
-</form>
-
-<div data-ng-if="user.uid != event.uid">
-	<label>Description</label>
-	<input type="text" disabled="disabled" data-ng-model="event.description" />
-	<label>Location</label>
-	<input type="text" disabled="disabled" data-ng-model="event.location" />
-
-	<label>Skills Requested</label>
-	<ul>
-		<li data-ng-repeat="skill in event.skills">{{skill}}</li>
-	</ul>
 </div>

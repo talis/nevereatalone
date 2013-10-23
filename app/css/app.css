@@ -2,6 +2,13 @@ ul ul{
 	list-style:none !important;
 }
 
+footer{
+  background:#111;
+  border-top:solid 5px white;
+  color:white;
+  height:300px;
+  padding:10px;
+}
 .nav-bar {
     background: #0091A1;
     height: 50px;
@@ -10,8 +17,23 @@ ul ul{
     padding: 0;
 }
 .top-bar{
-  height:50px;
+  margin-bottom:25px;
+  height:60px;
+  border-bottom:solid 5px white;
 }
+
+.top-bar .name{
+  margin:10px;
+}
+.top-bar .name h1 a{
+  width:250px;
+}
+.top-bar .icon-coffee{
+  float:left;
+  font-size:35px;
+  margin-right:5px;
+}
+
 .userProfile{
   width:200px;
 }

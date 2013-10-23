@@ -1,13 +1,7 @@
 <ng-include src="'partials/nav.html'"></ng-include>
 
 
-  <div class="row">
-    <div class="large-12 columns">
-      <!--<h2>Never Eat Alone</h2>-->
-      <hr />
-    </div>
-  </div>
-
+ 
   <div class="row">
     <div class="large-8 columns">
       <h3>Get a free lunch and teach some new skillz</h3>
@@ -43,6 +37,7 @@
       <li data-ng-repeat="(key,event) in events">
         <a href="#/event/{{key}}">{{event.description}} ({{event.location}})</a> - {{event.when}}
         <a class="button small success" data-ng-if="event.attendee_uid != null">{{event.attendee_name}} is attending!</a>
+        <a class="button small" data-ng-if="event.attendee_uid == null">no-one wants to come.</a>
       </li>
     </ul>
     <h3 data-ng-if="(invites|keyCount) > 0">Your invites</h3>
