@@ -154,9 +154,17 @@ angular.module('neverEatAloneApp.controllers', []).
 	controller('CreateEventController', function($scope, $location, angularFire, angularFireCollection, angularFireAuth, Login, Skills, db_url){
 		Login.login();
 		// Load up all skills we have listed
-		Skills.load($scope);
+		$scope.saveValueOn = {};
+		Skills.load($scope, false);
+
 		$scope.events = {'saveValue':{}};
 
+		$scope.addSkill = function(val){
+			$scope.saveValueOn[val] = true;
+		};
+		$scope.removeSkill = function(val){
+			delete $scope.saveValueOn[val];
+		}
 
 		$scope.createEvent = function(){
 
@@ -168,8 +176,8 @@ angular.module('neverEatAloneApp.controllers', []).
 				skills:new Array()
 			};
 
-			for(var i in this.events.saveValue){
-				if(this.events.saveValue[i] == true){
+			for(var i in $scope.saveValueOn){
+				if($scope.saveValueOn[i] == true){
 					eventobj.skills.push(i);
 				}
 			}
@@ -213,7 +221,7 @@ angular.module('neverEatAloneApp.controllers', []).
 		Login.login();
 		$scope.login = Login;
 		$scope.saveValueOn = {};
-		Skills.load($scope);
+		Skills.load($scope, true);
 
 
 		$scope.addSkill = function(val){

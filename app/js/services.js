@@ -62,7 +62,7 @@ angular.module('neverEatAloneApp')
 	})
 	.factory('Skills', function _factory(angularFireAuth, angularFireCollection, showSkillsFilter, db_url){
 		return {
-			load:function($scope){
+			load:function($scope, loadIntoSaveValue){
 				
 				$scope.profile = {'skillsMatrix':{},'saveValue':{},'description':''};
 
@@ -90,7 +90,9 @@ angular.module('neverEatAloneApp')
 								$scope.profile.description = data.val().description;
 								for(var i in data.val().skills){
 									$scope.profile.saveValue[data.val().skills[i]] = true;
-									$scope.saveValueOn[data.val().skills[i]] = true;
+									if(loadIntoSaveValue == true){
+										$scope.saveValueOn[data.val().skills[i]] = true;
+									}
 								}
 							}
 						});

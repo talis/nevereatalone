@@ -15,15 +15,36 @@
 			<label>When</label>
 			<input type="text" ng-model="when" placeholder="11am on the 23rd of Oct" />
 
-			<label>Skills you need help with</label>
+			<label>Skillz you need help with</label>
 
-			<ul>
-			<li data-ng-repeat="(key,skillArray) in profile.skillsMatrix">{{key}}
-				<ul>
-					<li data-ng-repeat="skill in skillArray"><input class="left" id="{{skill}}" type="checkbox" data-ng-model="events.saveValue[skill]" /><label for={{skill}}>{{skill}}</label></li>
-				</ul>
-			</li>
-			</ul>
+			<div class="row">
+    	        <div class="large-12 columns">
+					<ul>
+					<li class="nobullet large-4 columns" data-ng-repeat="(key,skillArray) in profile.skillsMatrix">{{key}}
+						<ul>
+							<li data-ng-repeat="skill in skillArray">
+							<label>{{skill}}</label>
+							<div class="switch tiny round">
+
+		                        <input data-ng-model="events.saveValue[skill]" data-ng-if="events.saveValue[skill] == null" id="{{skill}}" name="{{skill}}" type="radio" ng-click="removeSkill(skill)">
+		                        <input data-ng-model="events.saveValue[skill]" data-ng-if="events.saveValue[skill] != null" id="{{skill}}" name="{{skill}}" type="radio" checked ng-click="removeSkill(skill)">
+		                        
+
+		                        <label for="{{skill}}" onclick="">Off</label>
+		                        <input id="{{skill}}1" name="{{skill}}" type="radio" ng-click="addSkill(skill)">
+		                        <label for="{{skill}}1" onclick="">On</label>
+		                        <span></span>
+
+		                      </div>
+
+							<!--<input class="left" id="{{skill}}" type="checkbox" data-ng-model="events.saveValue[skill]" /><label for={{skill}}>{{skill}}</label>-->
+
+							</li>
+						</ul>
+					</li>
+					</ul>
+				</div>
+			</div>
 			<button>create</button>
 		</form>
 	</div>
