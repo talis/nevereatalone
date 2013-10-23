@@ -63,7 +63,7 @@ angular.module('neverEatAloneApp.controllers', []).
 			inviteRef = new Firebase(db_url+'/profile/'+$scope.user.uid+'/invites/'+$routeParams.eventId);
 			angularFireCollection(inviteRef);
 			inviteRef.once('value', function(inviteData){
-				if(inviteData.val() != null && inviteData.val().active == 'true'){
+				if(inviteData.val() != null && inviteData.val().active == true){
 					$scope.event = data.val();
 				} else{
 					$location.path('/');
@@ -73,19 +73,6 @@ angular.module('neverEatAloneApp.controllers', []).
 
 		$scope.join = function(){
 			Events.join($scope, $routeParams.eventId);
-			/*
-			// Delete out all other invites
-			for(var i in evnt.invites){
-				if(evnt.invites[i] != $scope.user.uid){
-					ref = new Firebase(db_url+'/profile/'+evnt.invites[i]+'/invites/'+$routeParams.eventId);
-					ref.remove();
-				}
-			}
-			// Update the event to show you are attending
-			ref = new Firebase(db_url+'/events/'+$routeParams.eventId);
-			ref.child('attendee_uid').set($scope.user.uid);
-			$location.path('/');
-			*/
 		}
 		$scope.leave = function(){
 			Events.leave($scope, $routeParams.eventId);

@@ -1,11 +1,6 @@
 <ng-include src="'partials/nav.html'"></ng-include>
 <h2>View your event</h2>
 
-{{event|json}}
-{{user|json}}
-
-
-
 <form>
 	<label>Description</label>
 	<input type="text" disabled="disabled" data-ng-model="event.description" />
@@ -18,7 +13,6 @@
 		<li data-ng-repeat="skill in event.skills">{{skill}}</li>
 	</ul>
 
-
-	<button data-ng-if="event.attendee_uid == user.uid" data-ng-click="leave()">i can't make it</button>
+	<button class="alert" data-ng-if="event.attendee_uid == user.uid" data-ng-click="leave()">i can't make it</button>
 	<button data-ng-if="event.attendee_uid != user.uid" data-ng-click="join()">join</button>
 </form>
