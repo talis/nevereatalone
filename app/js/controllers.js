@@ -7,7 +7,7 @@ angular.module('neverEatAloneApp.controllers', []).
 		// The following line should not be used - we need to persist the user on a page refresh
 		// console.log($cookies.provider);
 		Login.login();
-		
+
 		// Login.twitter();
 		$scope.login = Login;
 		$scope.events = {};
@@ -92,6 +92,13 @@ angular.module('neverEatAloneApp.controllers', []).
 		angularFireCollection(ref);
 		ref.once('value', function(data){
 			$scope.event = data.val();
+
+			// Get the user profile
+			var profileRef = new Firebase(db_url+'/profile/'+data.val().attendee_uid);
+			angularFireCollection(profileRef);
+			profileRef.once('value', function(profileData){
+				$scope.event.attendee = profileData.val();
+			});
 		});
 
 		$scope.cancel = function(evnt){

@@ -11,14 +11,15 @@
 	<label>When</label>
 	<input type="text" ng-model="event.when" placeholder="11am on the 23rd of Oct" />
 
-
-
-
-
 	<label>Skills Requested</label>
 	<ul>
 		<li data-ng-repeat="skill in event.skills">{{skill}}</li>
 	</ul>
+
+	<div data-ng-if="event.attendee_uid != null">
+		<p>Hooray - {{event.attendee_name}} is attending your event!</p>
+	</div>
+
 	<button data-ng-click="save(event)">save</button>
 	<button data-ng-click="cancel(event)" class="alert">delete event</button>
 </form>

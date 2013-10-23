@@ -29,6 +29,7 @@ angular.module('neverEatAloneApp')
 					// Update the event to show you are attending
 					ref = new Firebase(db_url+'/events/'+eventId);
 					ref.child('attendee_uid').set($scope.user.uid);
+					ref.child('attendee_name').set($scope.user.name);
 					$location.path('/');
 				});
 			},
@@ -51,6 +52,8 @@ angular.module('neverEatAloneApp')
 					}
 					// Update the event to show you are attending
 					ref = new Firebase(db_url+'/events/'+eventId+'/attendee_uid');
+					ref.remove();
+					ref = new Firebase(db_url+'/events/'+eventId+'/attendee_name');
 					ref.remove();
 					$location.path('/');
 				});
@@ -98,7 +101,6 @@ angular.module('neverEatAloneApp')
 	.factory('Login', function _factory($rootScope, $location, $cookies, angularFireAuth, db_url){
 		return {
 			login:function(){
-				console.log($cookies.provider);
 
 				switch($cookies.provider){
 					case 'twitter':

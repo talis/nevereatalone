@@ -11,7 +11,7 @@
   <div class="row">
     <div class="large-8 columns">
       <h3>Get a free lunch and teach some new skillz</h3>
-      <p>Never eat alone is a network of technical people all waiting for a free lunch.  In return for buying lunch you get to fire off questions about your tech issues, what could be more fun?</p>
+      <p>Never lunch solo is a network of technical people all waiting for a free lunch.  In return for buying lunch you get to fire off questions about your tech issues, what could be more fun?</p>
       <div class="row"></div>
       <div class="row">
   <div class="large-6 columns">
@@ -37,17 +37,20 @@
   </div>
 
   <div class="row">
-    <div class="large-6 columns">
+    <div class="large-12 columns">
       <h3 data-ng-if="(events|keyCount) > 0">Your events</h3>
     <ul>
-      <li data-ng-repeat="(key,event) in events"><a href="#/event/{{key}}">{{event.description}} ({{event.location}})</a> - {{event.when}}
+      <li data-ng-repeat="(key,event) in events">
+        <a href="#/event/{{key}}">{{event.description}} ({{event.location}})</a> - {{event.when}}
+        <a class="button small success" data-ng-if="event.attendee_uid != null">{{event.attendee_name}} is attending!</a>
       </li>
     </ul>
     <h3 data-ng-if="(invites|keyCount) > 0">Your invites</h3>
     <ul>
-      <li data-ng-repeat="(key,invite) in invites"><a href="#/invite/{{key}}">{{invite.description}} ({{invite.location}}) - {{invite.when}}</a>
-        <a data-ng-if="invite.attendee_uid != user.uid" class="button" data-ng-click="join(key)">join</a>
-        <a data-ng-if="invite.attendee_uid == user.uid" class="button success">attending</a>
+      <li data-ng-repeat="(key,invite) in invites" style="width:100%;">
+        <a href="#/invite/{{key}}">{{invite.description}} ({{invite.location}}) - {{invite.when}}</a>
+        <a data-ng-if="invite.attendee_uid != user.uid" class="button small" data-ng-click="join(key)">join</a>
+        <a data-ng-if="invite.attendee_uid == user.uid" class="button small success">attending</a>
       </li>
     </ul>
   </div></div>
