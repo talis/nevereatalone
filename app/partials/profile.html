@@ -3,15 +3,15 @@
 <h2>PROFILE</h2>
 
 <form data-ng-submit="save()" data-ng-controller="ProfileController">
-<label>{{NEA}} Profile Description</label>
-<input data-ng-model="profile.description" type="text" />
+  <label>{{NEA}} Profile Description</label>
+  <input data-ng-model="profile.description" type="text" />
 
-	<ul>
-	<li data-ng-repeat="(key,skillArray) in profile.skillsMatrix">{{key}}
-		<ul>
-			<li data-ng-repeat="skill in skillArray"><input class="left" id="{{skill}}" type="checkbox" data-ng-model="profile.saveValue[skill]" /><label for={{skill}}>{{skill}}</label></li>
-		</ul>
-	</li>
-	</ul>
-	<button>save</button>
+    <ul>
+      <li data-ng-repeat="(key,skillArray) in profile.skillsMatrix">{{key}}
+        <ul>
+          <li data-ng-repeat="skill in skillArray"><input class="left" id="{{skill}}" type="checkbox" data-ng-model="profile.saveValue[skill]" /><label for={{skill}}>{{skill}}</label></li>
+        </ul>
+      </li>
+    </ul>
+    <button>save</button>
 </form>
