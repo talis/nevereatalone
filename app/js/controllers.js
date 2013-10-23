@@ -62,8 +62,17 @@ angular.module('neverEatAloneApp.controllers', []).
 		});
 
 		$scope.join = function(evnt){
-			console.log('joining event');
-			console.log(evnt);
+			// Delete out all other invites
+			for(var i in evnt.invites){
+				if(evnt.invites[i] != $scope.user.uid){
+					ref = new Firebase(db_url+'/profile/'+evnt.invites[i]+'/invites/'+$routeParams.eventId);
+					ref.remove();
+				}
+			}
+			// Update the event to show you are attending
+			ref = new Firebase(db_url+'/events/'+$routeParams.eventId);
+			ref.child('attendee_uid').set($scope.user.uid);
+			$location.path('/');
 		}
 	}).
 

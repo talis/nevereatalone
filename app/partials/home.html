@@ -68,14 +68,14 @@
 <button data-ng-click="login.twitter()">login with twitter</button>
 <button data-ng-click="login.github()">login with github</button>
 
-<h3>Your events</h3>
+<h3 data-ng-if="events.length > 0">Your events</h3>
 <!-- <pre>{{events|json}}</pre> -->
 
 <ul>
 	<li data-ng-repeat="(key,event) in events"><a href="#/event/{{key}}">{{event.description}} ({{event.location}})</li>
 </ul>
 
-<h3>Your invites</h3>
+<h3 data-ng-if="invites.length > 0">Your invites</h3>
 <ul>
 	<li data-ng-repeat="(key,invite) in invites"><a href="#/invite/{{key}}">{{invite.description}} ({{invite.location}})</li>
 </ul>
