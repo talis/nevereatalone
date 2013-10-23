@@ -1,26 +1,30 @@
 <ng-include src="'partials/nav.html'"></ng-include>
-<h2>Create an event</h2>
 
 
-<form data-ng-submit="createEvent()" class="">
-	<label>Description</label>
-	<textarea ng-model="description" placeholder="Help me, Obi-Wan Kenobi; you're my only hope."></textarea>
+<div class="row">
+    <div class="large-12 columns">
+    	<h2>Create an event</h2>
 
-	<label>Location</label>
-	<input type="text" ng-model="location" placeholder="Somewhere" />
+		<form data-ng-submit="createEvent()" class="">
+			<label>Description</label>
+			<textarea ng-model="description" placeholder="Help me, Obi-Wan Kenobi; you're my only hope."></textarea>
 
-	<label>When</label>
-	<input type="text" ng-model="when" placeholder="11am on the 23rd of Oct" />
+			<label>Location</label>
+			<input type="text" ng-model="location" placeholder="Somewhere" />
 
-	<label>Skills you need help with</label>
+			<label>When</label>
+			<input type="text" ng-model="when" placeholder="11am on the 23rd of Oct" />
 
-	<ul>
-	<li data-ng-repeat="(key,skillArray) in profile.skillsMatrix">{{key}}
-		<ul>
-			<li data-ng-repeat="skill in skillArray"><input class="left" id="{{skill}}" type="checkbox" data-ng-model="events.saveValue[skill]" /><label for={{skill}}>{{skill}}</label></li>
-		</ul>
-	</li>
-	</ul>
-	<button>create</button>
-</form>
+			<label>Skills you need help with</label>
 
+			<ul>
+			<li data-ng-repeat="(key,skillArray) in profile.skillsMatrix">{{key}}
+				<ul>
+					<li data-ng-repeat="skill in skillArray"><input class="left" id="{{skill}}" type="checkbox" data-ng-model="events.saveValue[skill]" /><label for={{skill}}>{{skill}}</label></li>
+				</ul>
+			</li>
+			</ul>
+			<button>create</button>
+		</form>
+	</div>
+</div>
