@@ -2,14 +2,15 @@
 <h2>Create an event</h2>
 
 
-{{profile|json}}
-
 <form data-ng-submit="createEvent()" class="">
 	<label>Description</label>
-	<input type="textarea" ng-model="description" />
+	<textarea ng-model="description" placeholder="Help me, Obi-Wan Kenobi; you're my only hope."></textarea>
 
 	<label>Location</label>
-	<input type="text" ng-model="location" />
+	<input type="text" ng-model="location" placeholder="Somewhere" />
+
+	<label>When</label>
+	<input type="text" ng-model="when" placeholder="11am on the 23rd of Oct" />
 
 	<label>Skills you need help with</label>
 

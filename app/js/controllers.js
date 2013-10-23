@@ -30,8 +30,9 @@ angular.module('neverEatAloneApp.controllers', []).
 				inviteRef.on('value', function(data){
 					$scope.invites = {};
 					for(var i in data.val()){
-						console.log(data.val()[i]);
-						if(data.val()[i].active == 'true'){
+
+						if(data.val()[i].active == true){
+
 							inviteEventRef = new Firebase(db_url+'/events/'+i);
 							angularFireCollection(inviteEventRef);
 							inviteEventRef.once('value', function(eventData){
@@ -136,6 +137,7 @@ angular.module('neverEatAloneApp.controllers', []).
 				eventobj = {
 				description:this.description,
 				location:this.location,
+				when:this.when,
 				skills:new Array()
 			};
 
@@ -148,6 +150,7 @@ angular.module('neverEatAloneApp.controllers', []).
 			newEventRef = new Firebase(db_url+'/events/');
 			newEvent = newEventRef.push({
 				description:(eventobj.description !== undefined ? eventobj.description : ''),
+				when:(eventobj.when !== undefined ? eventobj.when : ''),
 				location:(eventobj.location !== undefined ? eventobj.location : ''),
 				skills: eventobj.skills,
 				uid:$scope.user.uid

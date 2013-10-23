@@ -7,10 +7,17 @@
 
 <form data-ng-if="user.uid == event.uid">
 	<label>Description</label>
-	<input type="text" data-ng-model="event.description" />
+	<textarea ng-model="event.description" placeholder="Help me, Obi-Wan Kenobi; you're my only hope."></textarea>
 
 	<label>Location</label>
-	<input type="text" data-ng-model="event.location" />
+	<input type="text" ng-model="event.location" placeholder="Somewhere" />
+
+	<label>When</label>
+	<input type="text" ng-model="event.when" placeholder="11am on the 23rd of Oct" />
+
+
+
+
 
 	<label>Skills Requested</label>
 	<ul>

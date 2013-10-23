@@ -23,7 +23,7 @@ angular.module('neverEatAloneApp')
 					for(var i in evnt.invites){
 						if(evnt.invites[i] != $scope.user.uid){
 							ref = new Firebase(db_url+'/profile/'+evnt.invites[i]+'/invites/'+eventId);
-							ref.child('active').set('false');
+							ref.child('active').set(false);
 						}
 					}
 					// Update the event to show you are attending
@@ -46,7 +46,7 @@ angular.module('neverEatAloneApp')
 							ref.remove();
 						} else{
 							ref = new Firebase(db_url+'/profile/'+evnt.invites[i]+'/invites/'+eventId);
-							ref.child('active').set('true');
+							ref.child('active').set(true);
 						}
 					}
 					// Update the event to show you are attending
