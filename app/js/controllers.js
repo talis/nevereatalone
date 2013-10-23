@@ -167,7 +167,7 @@ angular.module('neverEatAloneApp.controllers', []).
 		}
 
 		$scope.createEvent = function(){
-
+			
 			var newEvent, newEventRef, ref, invites = new Array(), 
 				eventobj = {
 				description:this.description,

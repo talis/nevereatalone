@@ -1,16 +1,23 @@
 <ng-include src="'partials/nav.html'"></ng-include>
 
 
+
 <div class="row">
     <div class="large-12 columns">
     	<h2>Create an event</h2>
 
-		<form data-ng-submit="createEvent()" class="">
+		<form data-ng-submit="createEvent()" class="custom">
 			<label>Description</label>
 			<textarea ng-model="description" placeholder="Help me, Obi-Wan Kenobi; you're my only hope."></textarea>
 
-			<label>Location</label>
-			<input type="text" ng-model="location" placeholder="Somewhere" />
+			<label >Location <strong>(Get in touch to be one of our authorised meetup locations!)</strong></label>
+			
+			<select  ng-model="location" class="medium">
+				<option value="Yorks Cafe">Yorks Cafe</option>
+				<option value="Urban Coffee">Urban Coffee</option>
+				<option value="68 Kafe">68 Kafe</option>
+			</select>
+			<!-- <input type="text" ng-model="location" placeholder="Somewhere" /> -->
 
 			<label>When</label>
 			<input type="text" ng-model="when" placeholder="11am on the 23rd of Oct" />
@@ -49,3 +56,4 @@
 		</form>
 	</div>
 </div>
+
