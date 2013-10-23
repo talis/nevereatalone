@@ -1,10 +1,6 @@
 <ng-include src="'partials/nav.html'"></ng-include>
 <h2>View your event</h2>
 
-{{event|json}}
-
-{{user|json}}
-
 <form data-ng-if="user.uid == event.uid">
 	<label>Description</label>
 	<textarea ng-model="event.description" placeholder="Help me, Obi-Wan Kenobi; you're my only hope."></textarea>
@@ -24,7 +20,7 @@
 		<li data-ng-repeat="skill in event.skills">{{skill}}</li>
 	</ul>
 	<button data-ng-click="save(event)">save</button>
-	<button data-ng-click="cancel(event)">cancel</button>
+	<button data-ng-click="cancel(event)" class="alert">delete event</button>
 </form>
 
 <div data-ng-if="user.uid != event.uid">

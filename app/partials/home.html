@@ -23,9 +23,11 @@
       </div>
     </div>
     <div class="large-4 columns">
-      <h4>Sign up or Login</h4>
-      <button data-ng-click="login.twitter()">twitter</button>
-      <button data-ng-click="login.github()">github</button>
+      <div data-ng-if="user.uid == null">
+        <h4>Sign up or Login</h4>
+        <button data-ng-click="login.twitter()">twitter</button>
+        <button data-ng-click="login.github()">github</button>
+      </div>
       <h4>Users..</h4>
       <p>Hungry users or perspective buyers?</p>
       <ul class="disc">
@@ -35,17 +37,17 @@
   </div>
 
   <div class="row">
-    <div class="large-6 columns"></div>
-    <h3 data-ng-if="(events|keyCount) > 0">Your events</h3>
-  <ul>
-    <li data-ng-repeat="(key,event) in events"><a href="#/event/{{key}}">{{event.description}} ({{event.location}})</a> - {{event.when}}
-    </li>
-  </ul>
-  <h3 data-ng-if="(invites|keyCount) > 0">Your invites</h3>
-  <ul>
-    <li data-ng-repeat="(key,invite) in invites"><a href="#/invite/{{key}}">{{invite.description}} ({{invite.location}}) - {{invite.when}}</a>
-      <a data-ng-if="invite.attendee_uid != user.uid" class="button" data-ng-click="join(key)">join</a>
-      <a data-ng-if="invite.attendee_uid == user.uid" class="button success">attending</a>
-    </li>
-  </ul>
-  </div>
+    <div class="large-6 columns">
+      <h3 data-ng-if="(events|keyCount) > 0">Your events</h3>
+    <ul>
+      <li data-ng-repeat="(key,event) in events"><a href="#/event/{{key}}">{{event.description}} ({{event.location}})</a> - {{event.when}}
+      </li>
+    </ul>
+    <h3 data-ng-if="(invites|keyCount) > 0">Your invites</h3>
+    <ul>
+      <li data-ng-repeat="(key,invite) in invites"><a href="#/invite/{{key}}">{{invite.description}} ({{invite.location}}) - {{invite.when}}</a>
+        <a data-ng-if="invite.attendee_uid != user.uid" class="button" data-ng-click="join(key)">join</a>
+        <a data-ng-if="invite.attendee_uid == user.uid" class="button success">attending</a>
+      </li>
+    </ul>
+  </div></div>

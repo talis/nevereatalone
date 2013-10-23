@@ -11,13 +11,27 @@ ul ul{
 }
 
 body {
-  background: black;
+  background: #2b2b2b;
   color: #5da423;
   padding: 0;
   margin: 0;
-  font-family: "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;
   font-weight: normal;
   font-style: normal;
   line-height: 1;
   position: relative;
-  cursor: default; }
+  cursor: default;
+
+  /*background-image: radial-gradient(center center, circle cover, #545454, #1a160d);
+            background-image: -o-radial-gradient(center center, circle cover, #545454, #1a160d);
+            background-image: -ms-radial-gradient(center center, circle cover, #545454, #1a160d);
+            background-image: -moz-radial-gradient(center center, circle cover, #545454, #1a160d);
+            background-image: -webkit-radial-gradient(center center, circle cover, #545454, #1a160d);*/
+}
+
+ body,h1,h2,h3,h4,h5,h6{
+	font-family: "Courier New", Courier, "Lucida Sans Typewriter", "Lucida Typewriter", monospace;
+}
+
+label{
+	color:white;
+}

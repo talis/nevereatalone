@@ -95,8 +95,20 @@ angular.module('neverEatAloneApp')
 			}
 		}
 	})
-	.factory('Login', function _factory($rootScope, $location, angularFireAuth, db_url){
+	.factory('Login', function _factory($rootScope, $location, $cookies, angularFireAuth, db_url){
 		return {
+			login:function(){
+				console.log($cookies.provider);
+
+				switch($cookies.provider){
+					case 'twitter':
+						this.twitter();
+						break;
+					case 'github':
+						this.github();
+						break;
+				}
+			},
 			github:function(){
 				var ref = new Firebase(db_url);
 				var auth = new FirebaseSimpleLogin(ref, function(error, user){
@@ -108,6 +120,7 @@ angular.module('neverEatAloneApp')
 								name:user.displayName,
 								avatar:user.avatar_url
 							};
+							$cookies.provider = 'github';
 						});
 					} else if(error){
 					} else{
@@ -129,6 +142,7 @@ angular.module('neverEatAloneApp')
 								avatar:user.profile_image_url
 							};
 						});
+						$cookies.provider = 'twitter';
 					} else if(error){
 					} else{
 						this.login('twitter', {
@@ -146,6 +160,10 @@ angular.module('neverEatAloneApp')
 				});
 				auth.logout();
 				$rootScope.user = null;
+				$cookies.provider = '';
+				delete $cookies.provider;
+				delete $cookies['provider'];
+
 				$location.path('/logout');
 			}
 		}

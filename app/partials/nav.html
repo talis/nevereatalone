@@ -10,27 +10,13 @@
 </ul>
 
   <section class="top-bar-section">
-    <!-- Left Nav Section -->
-    <ul class="left">
-      <li class="divider"></li>
-
-      <li><a href="#/profile">My Profile</a></li>
-      <li data-ng-if="user.uid"><img data-ng-src="{{user.avatar}}"/>
-      <li class="divider"></li>
-    </ul>
+    
     <!-- Right Nav Section -->
     <ul class="right">
-      <li class="divider hide-for-small"></li>
-  
-      <li class="divider"></li>
-      <li class="has-form">
-        <form>
-          <div class="row collapse">
-          </div>
-        </form>
-      </li>
+      <!-- <pre>{{user|json}}</pre> -->
+      <li data-ng-if="user.uid != null"><img class="left" data-ng-src="{{user.avatar}}" /><a href="#/profile">My Profile</a></li>
       <li class="divider show-for-small"></li>
-      <li class="has-form">
+      <li data-ng-if="user.uid != null" class="has-form">
         <a class="button" data-ng-click="login.logout()" href=#>Logout</a></li>
       </li>
     </ul>
