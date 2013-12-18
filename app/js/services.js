@@ -83,19 +83,20 @@ angular.module('neverEatAloneApp')
 							$scope.profile.skillsMatrix = matrix;
 						});
 						
-						var ref = new Firebase(db_url+'/profile/'+$scope.user.uid);
-						ref.on('value', function(data){
-							// console.log(data.val());
-							if(data.val() !== null){
-								$scope.profile.description = data.val().description;
-								for(var i in data.val().skills){
-									$scope.profile.saveValue[data.val().skills[i]] = true;
-									if(loadIntoSaveValue == true){
-										$scope.saveValueOn[data.val().skills[i]] = true;
+						if($scope.user != null){
+							var ref = new Firebase(db_url+'/profile/'+$scope.user.uid);
+							ref.on('value', function(data){
+								if(data.val() !== null){
+									$scope.profile.description = data.val().description;
+									for(var i in data.val().skills){
+										$scope.profile.saveValue[data.val().skills[i]] = true;
+										if(loadIntoSaveValue == true){
+											$scope.saveValueOn[data.val().skills[i]] = true;
+										}
 									}
 								}
-							}
-						});
+							});
+						}
 					}
 				});
 			}
@@ -129,7 +130,7 @@ angular.module('neverEatAloneApp')
 						});
 					} else if(error){
 					} else{
-						this.login('github', {
+						auth.login('github', {
 							rememberMe:true
 						});
 					}
@@ -150,7 +151,7 @@ angular.module('neverEatAloneApp')
 						$cookies.provider = 'twitter';
 					} else if(error){
 					} else{
-						this.login('twitter', {
+						auth.login('twitter', {
 							rememberMe:true
 						});
 					}

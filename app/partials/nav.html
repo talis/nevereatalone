@@ -1,5 +1,5 @@
 
-<nav class="top-bar">
+<nav class="top-bar" data-options="is_hover:false">
 <ul class="title-area">
   <!-- Title Area -->
   <li class="name">
@@ -13,7 +13,6 @@
     
     <!-- Right Nav Section -->
     <ul class="right">
-      <!-- <pre>{{user|json}}</pre> -->
       <li data-ng-if="user.uid != null" class="userProfile"><img class="left" data-ng-src="{{user.avatar}}" /><a href="#/profile">My Profile</a></li>
       <li class="divider show-for-small"></li>
       <li data-ng-if="user.uid != null" class="has-form">
